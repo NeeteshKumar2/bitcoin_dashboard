@@ -1,4 +1,5 @@
-﻿import numpy as np
+﻿# 2. Data Analysis
+import numpy as np
 from fetch_data import fetch_bitcoin_data
 
 def analyze_bitcoin_data(days=31):
@@ -17,15 +18,15 @@ def analyze_bitcoin_data(days=31):
         print("No data available for analysis.")
         return None, None, None
     
-    # Convert prices to NumPy array
+    # Step 1 - Convert prices to NumPy array
     prices = np.array(list(data.values()))
     
-    # Compute statistics
+    # Step 2 - Compute statistics
     mean_price = np.mean(prices)
     median_price = np.median(prices)
     std_dev = np.std(prices)
     
-    # Print results
+    # Step 3 - Print results
     print(f"\n📊 Bitcoin Price Analysis for the Last {days} Days")
     print(f"📈 Average Price: ${mean_price:.2f}")
     print(f"📉 Median Price: ${median_price:.2f}")
@@ -34,8 +35,8 @@ def analyze_bitcoin_data(days=31):
     return mean_price, median_price, std_dev
 
 if __name__ == "__main__":
-    print("🔍 Analyzing Bitcoin price for the last 31 days...")
+    print("🔍 Analyzing Bitcoin price for the last 31(default) days...")
     analyze_bitcoin_data(31)
 
-    print("\n🔍 Analyzing Bitcoin price for the last 1 year...")
-    analyze_bitcoin_data(365)
+    '''print("\n🔍 Analyzing Bitcoin price for the last 1 year...")
+    analyze_bitcoin_data(365)'''

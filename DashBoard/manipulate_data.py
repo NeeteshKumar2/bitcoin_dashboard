@@ -1,4 +1,5 @@
-﻿from fetch_data import fetch_bitcoin_data
+﻿# 3.Data Manipulation
+from fetch_data import fetch_bitcoin_data
 
 def manipulate_bitcoin_data(days=31):
     """Sort, slice, and clean Bitcoin historical price data.
@@ -16,16 +17,16 @@ def manipulate_bitcoin_data(days=31):
         print("No data available for manipulation.")
         return None, None, None
 
-    # Sort data by date (ascending order)
+    # Step 1 - Sort data by date (ascending order)
     sorted_data = sorted(data.items())  # List of tuples: [(date, price), (date, price), ...]
 
-    # Slice first 7 days (early trends)
+    # Step 2.1 - Slice first 7 days (early trends)
     first_week_data = sorted_data[:7]
 
-    # Slice last 7 days (recent trends)
+    # Step 2.2 - Slice last 7 days (recent trends)
     last_week_data = sorted_data[-7:]
 
-    # Clean data (remove missing or invalid values)
+    # Step 3 - Clean data (remove missing or invalid values)
     cleaned_data = [(date, price) for date, price in sorted_data if price is not None]
 
     # Print sliced data
@@ -43,5 +44,5 @@ if __name__ == "__main__":
     print("🔄 Manipulating Bitcoin price data for the last 31 days...\n")
     manipulate_bitcoin_data(31)
 
-    print("\n🔄 Manipulating Bitcoin price data for the last 1 year...\n")
-    manipulate_bitcoin_data(365)
+    '''print("\n🔄 Manipulating Bitcoin price data for the last 1 year...\n")
+    manipulate_bitcoin_data(365)'''

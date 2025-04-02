@@ -1,4 +1,5 @@
-﻿import matplotlib.pyplot as plt
+﻿# 4. Visualization
+import matplotlib.pyplot as plt
 import os
 from fetch_data import fetch_bitcoin_data
 from manipulate_data import manipulate_bitcoin_data
@@ -7,8 +8,9 @@ from manipulate_data import manipulate_bitcoin_data
 PLOT_DIR = "plots"
 os.makedirs(PLOT_DIR, exist_ok=True)  # Ensure directory exists
 
+# Step 1 - Line Plot
 def plot_line_chart(data, period="31 days"):
-    """Plot and save a line chart for Bitcoin closing prices."""
+    """Plot and save a line chart for Bitcoin prices."""
     dates, prices = zip(*data)
 
     plt.figure(figsize=(10, 5))
@@ -16,7 +18,7 @@ def plot_line_chart(data, period="31 days"):
 
     plt.xlabel("Date")
     plt.ylabel("Closing Price (USD)")
-    plt.title(f"Bitcoin Closing Prices Over {period}")
+    plt.title(f"LinePlot Bitcoin Closing Prices Over {period}")
     plt.xticks(rotation=45)
     plt.legend()
     plt.grid(True)
@@ -27,6 +29,7 @@ def plot_line_chart(data, period="31 days"):
 
     plt.show()
 
+# Step 2 - Bar Chart
 def plot_bar_chart(data, period="Last 7 days"):
     """Plot and save a bar chart for Bitcoin closing prices of a specific week."""
     dates, prices = zip(*data)
@@ -36,7 +39,7 @@ def plot_bar_chart(data, period="Last 7 days"):
 
     plt.xlabel("Date")
     plt.ylabel("Closing Price (USD)")
-    plt.title(f"Bitcoin Closing Prices for {period}")
+    plt.title(f"BarChart Bitcoin Closing Prices for {period}")
     plt.xticks(rotation=45)
     plt.legend()
 

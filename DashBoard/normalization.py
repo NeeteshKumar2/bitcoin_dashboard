@@ -1,4 +1,5 @@
-﻿import numpy as np
+﻿# 5. Data Normalization
+import numpy as np
 import matplotlib.pyplot as plt
 from fetch_data import fetch_bitcoin_data
 from manipulate_data import manipulate_bitcoin_data
@@ -8,6 +9,7 @@ import os
 PLOT_DIR = "plots"
 os.makedirs(PLOT_DIR, exist_ok=True)  # Ensure directory exists
 
+# Step 1- Normalization Technique:
 def min_max_scaling(prices):
     """Apply Min-Max normalization to scale prices between 0 and 1."""
     min_value = np.min(prices)
@@ -19,6 +21,7 @@ def min_max_scaling(prices):
     print(f"📌 Normalization Price: {normalized_prices}")
     return normalized_prices, min_value, max_value
 
+# Step 2 - Comparison Plot:
 def plot_normalized_comparison(dates, original_prices, normalized_prices):
     """Plot original vs. normalized prices on the same graph."""
     plt.figure(figsize=(10, 5))

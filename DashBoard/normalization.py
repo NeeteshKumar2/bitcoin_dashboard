@@ -3,10 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from fetch_data import fetch_bitcoin_data
 from manipulate_data import manipulate_bitcoin_data
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+import matplotlib.dates as mdates
+from datetime import datetime
 import os
 
 # Directory to save plots
-PLOT_DIR = "plots"
+PLOT_DIR = "plots-snip"
 os.makedirs(PLOT_DIR, exist_ok=True)  # Ensure directory exists
 
 # Step 1- Normalization Technique:
@@ -21,27 +24,46 @@ def min_max_scaling(prices):
     print(f"📌 Normalization Price: {normalized_prices}")
     return normalized_prices, min_value, max_value
 
-# Step 2 - Comparison Plot:
 def plot_normalized_comparison(dates, original_prices, normalized_prices):
-    """Plot original vs. normalized prices on the same graph."""
-    plt.figure(figsize=(10, 5))
+    """Compare original and normalized plots side by side."""
 
-    # Original Data
-    plt.plot(dates, original_prices, marker='o', linestyle='-', color='b', label="Original Prices")
+    # Convert dates to datetime objects
+    formatted_dates = [datetime.strptime(date, "%Y-%m-%d") for date in dates]
 
-    # Normalized Data
-    plt.plot(dates, normalized_prices, marker='s', linestyle='--', color='r', label="Normalized Prices")
 
+    plt.figure(figsize=(12, 6))
+
+    # Subplot 1: Original Prices
+    plt.subplot(1, 2, 1)
+    plt.plot(formatted_dates, original_prices, marker='o', linestyle='-', color='b', label="Original Prices")
     plt.xlabel("Date")
-    plt.ylabel("Price (Scaled / USD)")
-    plt.title("Bitcoin Prices: Raw vs. Normalized")
-    plt.xticks(rotation=45)
-    plt.legend()
+    plt.ylabel("Price (USD)")
+    plt.title("Original Prices")
     plt.grid(True)
+    plt.legend()
+    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %d, %Y"))
+    plt.xticks(rotation=45)
 
-    # Save the plot
-    plt.savefig(os.path.join(PLOT_DIR, "normalized_comparison.png"))
-    print("✅ Normalized comparison plot saved as 'plots/normalized_comparison.png'")
+# Subplot 2: Normalized Prices
+    plt.subplot(1, 2, 2)
+    plt.plot(formatted_dates, normalized_prices, marker='s', linestyle='--', color='r', label="Normalized Prices")
+    plt.xlabel("Date")
+    plt.ylabel("Scaled Price")
+    plt.title("Normalized Prices")
+    plt.grid(True)
+    plt.legend()
+    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %d, %Y"))
+    plt.xticks(rotation=45)
+
+
+    # Adjust layout
+    plt.tight_layout()
+
+    # Save the comparison plot
+    plt.savefig(os.path.join(PLOT_DIR, "comparison_plot.png"))
+    print("✅ Comparison plot saved as 'plots/comparison_plot.png'")
 
     plt.show()
 

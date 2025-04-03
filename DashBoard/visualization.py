@@ -5,7 +5,7 @@ from fetch_data import fetch_bitcoin_data
 from manipulate_data import manipulate_bitcoin_data
 
 # Directory to save plots
-PLOT_DIR = "plots"
+PLOT_DIR = "plots-snip"
 os.makedirs(PLOT_DIR, exist_ok=True)  # Ensure directory exists
 
 # Step 1 - Line Plot

@@ -1,3 +1,4 @@
+# 6.Simulated Data Streaming
 import numpy as np
 import matplotlib.pyplot as plt
 import threading
@@ -13,7 +14,7 @@ aggregated_data = {}
 # Lock for thread-safe access
 data_lock = threading.Lock()
 
-def fetch_and_store_data(days, label):
+def fetch_and_store_data(days, label, interval=10):
     """Fetch Bitcoin data for a given period and store it in shared storage."""
     while True:
         print(f"🌍 Fetching {label} data...")
@@ -26,15 +27,15 @@ def fetch_and_store_data(days, label):
             with data_lock:  # Lock to prevent race conditions
                 aggregated_data[label] = sorted_data
 
-            visualize_and_analyze_data()
+            visualize_and_analyze_data(label)
 
         else:
             print(f"❌ Failed to fetch {label} data.")
 
         print(f"⏳ Waiting before next fetch for {label}...")
-        time.sleep(10)  # Adjust fetch interval
+        time.sleep(interval)  # Adjust fetch interval
 
-def visualize_and_analyze_data():
+def visualize_and_analyze_data(label):
     """Aggregates, visualizes, normalizes, and compares fetched data."""
     with data_lock:  # Ensure thread-safe access
         if not aggregated_data:
@@ -59,18 +60,18 @@ def visualize_and_analyze_data():
         normalized_prices, min_price, max_price = min_max_scaling(prices_array)
 
         # Plot normalized vs original comparison
-        plot_normalized_comparison(dates, prices_array, normalized_prices)
+        plot_normalized_comparison(dates, prices_array, normalized_prices, label)
 
 def start_threads():
     """Start multiple threads to fetch data concurrently."""
     threads = []
 
     # Create Thread 1: Fetch 31 days of data
-    t1 = threading.Thread(target=fetch_and_store_data, args=(31, "31 Days"), daemon=True)
+    t1 = threading.Thread(target=fetch_and_store_data, args=(31, "31 Days", 45), daemon=True)
     threads.append(t1)
 
     # Create Thread 2: Fetch 365 days of data
-    t2 = threading.Thread(target=fetch_and_store_data, args=(365, "1 Year"), daemon=True)
+    t2 = threading.Thread(target=fetch_and_store_data, args=(365, "1 Year", 45), daemon=True)
     threads.append(t2)
 
     # Start both threads

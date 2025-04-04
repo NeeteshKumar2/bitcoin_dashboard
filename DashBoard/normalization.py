@@ -24,7 +24,7 @@ def min_max_scaling(prices):
     print(f"📌 Normalization Price: {normalized_prices}")
     return normalized_prices, min_value, max_value
 
-def plot_normalized_comparison(dates, original_prices, normalized_prices):
+def plot_normalized_comparison(dates, original_prices, normalized_prices, title="Original and Normalized plots"):
     """Compare original and normalized plots side by side."""
 
     # Convert dates to datetime objects
@@ -38,7 +38,6 @@ def plot_normalized_comparison(dates, original_prices, normalized_prices):
     plt.plot(formatted_dates, original_prices, marker='o', linestyle='-', color='b', label="Original Prices")
     plt.xlabel("Date")
     plt.ylabel("Price (USD)")
-    plt.title("Original Prices")
     plt.grid(True)
     plt.legend()
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
@@ -50,7 +49,6 @@ def plot_normalized_comparison(dates, original_prices, normalized_prices):
     plt.plot(formatted_dates, normalized_prices, marker='s', linestyle='--', color='r', label="Normalized Prices")
     plt.xlabel("Date")
     plt.ylabel("Scaled Price")
-    plt.title("Normalized Prices")
     plt.grid(True)
     plt.legend()
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
@@ -60,6 +58,9 @@ def plot_normalized_comparison(dates, original_prices, normalized_prices):
 
     # Adjust layout
     plt.tight_layout()
+    # Add a main title for the entire figure
+    plt.suptitle(title, fontsize=16)
+    plt.tight_layout(rect=[0, 0, 1, 0.95]) 
 
     # Save the comparison plot
     plt.savefig(os.path.join(PLOT_DIR, "comparison_plot.png"))

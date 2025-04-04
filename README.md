@@ -27,7 +27,7 @@ This project is a Python-based dashboard that fetches, analyzes, manipulates, vi
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/neeteshkahar2/bitcoin-dashboard.git
+   git clone https://github.com/NeeteshKumar2/bitcoin_dashboard.git
    cd bitcoin-dashboard
    ```
 2. Create a virtual environment (optional but recommended):
